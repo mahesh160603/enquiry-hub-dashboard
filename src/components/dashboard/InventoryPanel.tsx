@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { DataTable } from "@/components/ui/data-table";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -10,6 +9,15 @@ import { Button } from "@/components/ui/button";
 export function InventoryPanel() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("all");
+
+  // Get search term from URL or props if any
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlSearch = params.get('search');
+    if (urlSearch) {
+      setSearchTerm(urlSearch);
+    }
+  }, []);
 
   // Filter and search logic
   const filteredItems = inventoryItems.filter((item) => {

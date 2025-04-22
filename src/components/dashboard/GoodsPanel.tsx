@@ -1,6 +1,4 @@
-
-import { useState } from "react";
-import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
+import { useState, useEffect } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { Goods, incomingGoods, outgoingGoods } from "@/lib/data";
@@ -9,6 +7,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export function GoodsPanel({ type = "incoming" }: { type?: "incoming" | "outgoing" }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState<"incoming" | "outgoing">(type);
+
+  // Get search term from URL or props if any
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlSearch = params.get('search');
+    if (urlSearch) {
+      setSearchTerm(urlSearch);
+    }
+  }, []);
 
   // Filter goods based on search term
   const filteredIncomingGoods = incomingGoods.filter((item) =>
@@ -64,9 +71,7 @@ export function GoodsPanel({ type = "incoming" }: { type?: "incoming" | "outgoin
   const title = activeTab === "incoming" ? "Incoming Goods" : "Outgoing Goods";
 
   return (
-    <div className="space-y-6">
-      <DashboardHeader onSearch={setSearchTerm} title={title} />
-      
+    <div className="space-y-6">      
       <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "incoming" | "outgoing")}>
         <TabsList className="mb-4">
           <TabsTrigger value="incoming">Incoming Goods</TabsTrigger>

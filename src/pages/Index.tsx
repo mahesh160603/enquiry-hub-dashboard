@@ -29,8 +29,6 @@ const Index = () => {
 
   // Render the appropriate panel based on the selected tab
   const renderPanel = () => {
-    const commonProps = { searchTerm };
-
     switch (currentTab) {
       case "dashboard":
         return (
@@ -54,56 +52,56 @@ const Index = () => {
         return (
           <div>
             <DashboardHeader onSearch={handleSearch} title="Inventory Management" />
-            <InventoryPanel searchTerm={searchTerm} />
+            <InventoryPanel />
           </div>
         );
       case "projects":
         return (
           <div>
             <DashboardHeader onSearch={handleSearch} title="Projects" />
-            <ProjectsPanel searchTerm={searchTerm} />
+            <ProjectsPanel />
           </div>
         );
       case "contacts":
         return (
           <div>
             <DashboardHeader onSearch={handleSearch} title="Contacts" />
-            <ContactsPanel searchTerm={searchTerm} />
+            <ContactsPanel />
           </div>
         );
       case "incoming":
         return (
           <div>
             <DashboardHeader onSearch={handleSearch} title="Incoming Goods" />
-            <GoodsPanel type="incoming" searchTerm={searchTerm} />
+            <GoodsPanel type="incoming" />
           </div>
         );
       case "outgoing":
         return (
           <div>
             <DashboardHeader onSearch={handleSearch} title="Outgoing Goods" />
-            <GoodsPanel type="outgoing" searchTerm={searchTerm} />
+            <GoodsPanel type="outgoing" />
           </div>
         );
       case "services":
         return (
           <div>
             <DashboardHeader onSearch={handleSearch} title="Services" />
-            <ServicesPanel searchTerm={searchTerm} />
+            <ServicesPanel />
           </div>
         );
       case "deadlines":
         return (
           <div>
             <DashboardHeader onSearch={handleSearch} title="Deadlines" />
-            <DeadlinesPanel searchTerm={searchTerm} />
+            <DeadlinesPanel />
           </div>
         );
       case "extras":
         return (
           <div>
             <DashboardHeader onSearch={handleSearch} title="Settings & Extras" />
-            <ExtrasPanel searchTerm={searchTerm} />
+            <ExtrasPanel />
           </div>
         );
       default:

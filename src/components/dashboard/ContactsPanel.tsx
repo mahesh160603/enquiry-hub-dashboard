@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { DataTable } from "@/components/ui/data-table";
 import { contacts, Contact, ContactType } from "@/lib/data";
@@ -9,6 +8,15 @@ import { Button } from "@/components/ui/button";
 export function ContactsPanel() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState<ContactType | "all">("all");
+
+  // Get search term from URL or props if any
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlSearch = params.get('search');
+    if (urlSearch) {
+      setSearchTerm(urlSearch);
+    }
+  }, []);
 
   // Filter contacts based on search term and selected filter
   const filteredContacts = contacts.filter((contact) => {
