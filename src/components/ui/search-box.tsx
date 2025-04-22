@@ -1,6 +1,6 @@
 
-import { Search } from "lucide-react";
-import { useState } from "react";
+import { Search, X } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface SearchBoxProps {
   onSearch: (term: string) => void;
@@ -9,11 +9,23 @@ interface SearchBoxProps {
 
 export function SearchBox({ onSearch, placeholder = "Search..." }: SearchBoxProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  
+  // Use debounce for better performance
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onSearch(searchTerm);
+    }, 300);
+    
+    return () => clearTimeout(timer);
+  }, [searchTerm, onSearch]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    onSearch(value);
+    setSearchTerm(e.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchTerm("");
+    onSearch("");
   };
 
   return (
@@ -27,7 +39,13 @@ export function SearchBox({ onSearch, placeholder = "Search..." }: SearchBoxProp
         placeholder={placeholder}
         value={searchTerm}
         onChange={handleSearch}
+        aria-label={`Search ${placeholder}`}
       />
+      {searchTerm && (
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onClick={clearSearch}>
+          <X className="h-4 w-4 text-gray-400 hover:text-gray-600" />
+        </div>
+      )}
     </div>
   );
 }

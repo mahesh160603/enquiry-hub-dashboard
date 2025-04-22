@@ -1,7 +1,7 @@
 
 import { SearchBox } from "@/components/ui/search-box";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, Filter } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,7 +30,7 @@ export function DashboardHeader({ onSearch, title }: DashboardHeaderProps) {
               <Plus className="h-4 w-4 mr-1" /> Add New
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="bg-white">
             <DropdownMenuLabel>Quick Add</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>New Project</DropdownMenuItem>
@@ -38,6 +38,24 @@ export function DashboardHeader({ onSearch, title }: DashboardHeaderProps) {
             <DropdownMenuItem>New Service</DropdownMenuItem>
             <DropdownMenuItem>New Contact</DropdownMenuItem>
             <DropdownMenuItem>Record Goods</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="sm" variant="outline">
+              <Filter className="h-4 w-4 mr-1" /> Filter
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="bg-white">
+            <DropdownMenuLabel>Filter Options</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Last 7 days</DropdownMenuItem>
+            <DropdownMenuItem>Last 30 days</DropdownMenuItem>
+            <DropdownMenuItem>All time</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>High Priority</DropdownMenuItem>
+            <DropdownMenuItem>Medium Priority</DropdownMenuItem>
+            <DropdownMenuItem>Low Priority</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
